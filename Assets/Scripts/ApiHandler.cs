@@ -9,23 +9,25 @@ using static ApiHandler;
 
 public class ApiHandler : MonoBehaviour
 {
-    //public TextMeshProUGUI outputText;
+    public TextMeshProUGUI outputText;
 
-    //IEnumerator Start()
-    //{
-    //    string url = "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=client_data";
+    IEnumerator Start()
+    {
+        string url = "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=client_data";
 
-    //    UnityWebRequest request = UnityWebRequest.Get(url);
+        UnityWebRequest request = UnityWebRequest.Get(url);
 
-    //    yield return request.SendWebRequest();
+        yield return request.SendWebRequest();
 
-    //    if (request.result != UnityWebRequest.Result.Success)
-    //    {
-    //        Debug.Log("Error : " + request.error);
-    //    }
-    //    else
-    //    {
-    //        JSONNode Info = JSON.Parse(request.downloadHandler.text);
-    //    }
-    //}
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Error : " + request.error);
+        }
+        else
+        {
+            JSONNode Info = JSON.Parse(request.downloadHandler.text);
+        }
+    }
+
+    //unable to properly deserialize the json data and present into list forms.
 }

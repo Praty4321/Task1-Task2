@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;                                  //Author : Pratyush Mishra
 
 public class Spawningcircels : MonoBehaviour
 {
@@ -16,12 +16,14 @@ public class Spawningcircels : MonoBehaviour
 
     private void Start()
     {
+        //setting the boundry in which circles will be created and then creating the circles
         SetMinAndMax();
-        SpawnCircles();
+        SpawnCircles(); // process repeats on clicking Restart button
     }
 
     private void Update()
     {
+        //Handling the touch and trying the delete circles that can be detected.
         if(Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -48,7 +50,7 @@ public class Spawningcircels : MonoBehaviour
     {
         GameObject lineObject = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
         currentLine = lineObject.GetComponent<LineRenderer>();
-        currentLine.positionCount = 1;
+        //currentLine.positionCount = 1;
         currentLine.SetPosition(0, Camera.main.ScreenToWorldPoint(position));
         isDrawing = true;
     }
@@ -62,11 +64,11 @@ public class Spawningcircels : MonoBehaviour
     void EndDrawingLine()
     {
         isDrawing = false;
-        Destroy(currentLine.gameObject);
+        Destroy(currentLine.gameObject); //destroying line at the end of the touch 
 
         //checking for colision with circles and make them invisible
         RaycastHit2D[] hits = Physics2D.LinecastAll(currentLine.GetPosition(0), currentLine.GetPosition(currentLine.positionCount - 1), circleLayer);
-        foreach(RaycastHit2D hit in hits)
+        foreach(RaycastHit2D hit in hits) // for any circle with raycast that collides with the line.
         {
             if (hit.collider.CompareTag("circle"))
             {
@@ -89,7 +91,7 @@ public class Spawningcircels : MonoBehaviour
 
     public void SpawnCircles()
     {
-        int numberOfObjects = Random.Range(5, 9); // range : 5 to 10
+        int numberOfObjects = Random.Range(5, 11); // range : 5 to 10
 
         for(int i = 1; i <= numberOfObjects; i++)
         {
@@ -99,6 +101,8 @@ public class Spawningcircels : MonoBehaviour
             obj.transform.parent = transform;
             //Debug.Log(pos);
         }
-
     }
+
+    // BUG detected : 1. In some cases it is not working. 
+    // Line looking disconnected
 }
